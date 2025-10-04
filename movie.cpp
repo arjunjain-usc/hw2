@@ -8,12 +8,13 @@ Movie::Movie(const std::string category, const std::string name, double price, i
 {
 }
 
-std::set<std::string> Movie::keywords() const
-{
+std::set<std::string> Movie::keywords() const {
     std::set<std::string> nameWords = parseStringToWords(name_);
-    nameWords.insert(genre_);
-    return nameWords;
+    std::set<std::string> genreWords = parseStringToWords(genre_);
+    std::set<std::string> ratingWords = parseStringToWords(rating_);
+    return setUnion(setUnion(nameWords, genreWords), ratingWords);
 }
+
 
 std::string Movie::displayString() const
 {
